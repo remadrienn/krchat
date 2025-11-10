@@ -13,3 +13,12 @@ async function impl(e) {
 }
 
 self.addEventListener("fetch", e => e.respondWith(impl(e)));
+self.addEventListener("push", e => {
+  const data = e.data?.text() || "No message content";
+  e.waitUntil(
+    self.registration.showNotification("Chat Notification", {
+      body: data,
+    })
+  );
+});
+
